@@ -1,0 +1,133 @@
+:root {
+    --heative-green: #22c55e;
+    --heative-green-hover: #4ade80;
+    --heative-orange: #f97316;
+    --heative-text: #1f2937;
+    --heative-gray-light: #f3f4f6;
+    --heative-border: #e5e7eb;
+}
+
+.heative-widget {
+    font-family: inherit;
+    color: var(--heative-text);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.heative-widget * {
+    box-sizing: border-box;
+}
+
+.heative-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.heative-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.heative-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.heative-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.heative-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--heative-border);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.heative-input:focus {
+    border-color: var(--heative-green);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+}
+
+.heative-btn {
+    width: 100%;
+    background-color: var(--heative-green);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+
+.heative-btn:hover {
+    background-color: var(--heative-green-hover);
+}
+
+.heative-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.heative-success {
+    text-align: center;
+    padding: 2rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.heative-success-icon {
+    width: 4rem;
+    height: 4rem;
+    background-color: #dcfce7;
+    color: var(--heative-green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.heative-success h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+}
+
+.heative-success p {
+    color: #6b7280;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 640px) {
+    .heative-row {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
