@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import "./widget.css";
 
-// Placeholder for Pico API Key - to be replaced by user or env var
-const PICO_API_KEY = "YOUR_PICO_API_KEY_HERE";
-const PICO_API_URL = "https://api.pico.homezero.tech/v1/public/assignments";
+// API Configuration
+const PICO_API_KEY = "SyHQEpRXSysBHNlpPEc8YeK0fsz6MX3d";
+const PICO_API_URL =
+    "https://pico-accp.homezero.nl/rest/pico/v1/assignments/create";
+const FLOW_ID = "bd4b9115-a9b1-45de-80a6-4aa16a651c1e";
 
 function App() {
     const [formData, setFormData] = useState({
@@ -29,30 +31,20 @@ function App() {
         try {
             // Construct payload for Pico
             const payload = {
-                email: formData.email,
-                phone: formData.phone || undefined,
-                name: formData.name || undefined,
-                address:
+                FlowID: FLOW_ID,
+                Email: formData.email,
+                Phonenumber: formData.phone || undefined,
+                Lastname: formData.name || undefined,
+                HouseDetails:
                     formData.postalCode || formData.houseNumber
                         ? {
-                              postalCode: formData.postalCode || undefined,
-                              houseNumber: formData.houseNumber || undefined,
+                              Zipcode: formData.postalCode || undefined,
+                              Housenumber: formData.houseNumber || undefined,
                           }
                         : undefined,
-                // Add any other required fields or metadata here
-                source: "heative-brochure-widget",
             };
 
             console.log("Submitting to Pico:", payload);
-
-            // If we don't have a real key, we simulate success for testing purposes
-            // UNLESS the user explicitly wants to fail.
-            if (PICO_API_KEY === "YOUR_PICO_API_KEY_HERE") {
-                console.warn("Using placeholder API key. Simulating success.");
-                await new Promise((resolve) => setTimeout(resolve, 1500)); // Fake delay
-                setStatus("success");
-                return;
-            }
 
             const response = await fetch(PICO_API_URL, {
                 method: "POST",
@@ -64,13 +56,15 @@ function App() {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to submit request");
+                const errorText = await response.text();
+                console.error("API Error:", response.status, errorText);
+                throw new Error(`Failed: ${response.status} ${errorText}`);
             }
 
             setStatus("success");
         } catch (error) {
             console.error("Submission error:", error);
-            setErrorMessage("Er is iets misgegaan. Probeer het later opnieuw.");
+            setErrorMessage(`Er is iets misgegaan: ${error.message}`);
             setStatus("error");
         }
     };
